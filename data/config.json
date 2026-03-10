@@ -1,0 +1,24 @@
+{
+  "settings": {
+    "sensor_name": "SoilBot v1.0",
+    "sleep_seconds": 20,
+    "msg": "Hello from the garden!",
+    "led_r": 0,
+    "led_g": 255,
+    "led_b": 0,
+    "led_on_ms": 100
+  },
+  "plant_profile": {
+    "common_name": "Golden Barrel Cactus",
+    "scientific_name": "Echinocactus grusonii",
+    "type": "cactus",
+    "climate": "arid",
+    "thresholds": {
+      "moisture_min_pct": 10,
+      "moisture_max_pct": 30,
+      "temp_min_c": 10,
+      "temp_max_c": 35,
+      "light_lux_min": 10000
+    }
+  }
+}
