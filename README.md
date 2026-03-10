@@ -1,53 +1,68 @@
-| Supported Targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-C5 | ESP32-C6 | ESP32-C61 | ESP32-H2 | ESP32-H21 | ESP32-H4 | ESP32-P4 | ESP32-S2 | ESP32-S3 | Linux |
-| ----------------- | ----- | -------- | -------- | -------- | -------- | --------- | -------- | --------- | -------- | -------- | -------- | -------- | ----- |
+# SoilBot: Wireless Moisture Monitor
 
-# Hello World Example
-
-Starts a FreeRTOS task to print "Hello World".
-
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
-
-## How to use example
-
-Follow detailed instructions provided specifically for this example.
-
-Select the instructions depending on Espressif chip installed on your development board:
-
-- [ESP32 Getting Started Guide](https://docs.espressif.com/projects/esp-idf/en/stable/get-started/index.html)
-- [ESP32-S2 Getting Started Guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/get-started/index.html)
+SoilBot is a wireless moisture monitoring system designed for high-accuracy soil data collection. Using the **ESP32-C3** RISC-V microcontroller, it gathers sensor readings and transmits data wirelessly for environmental analysis.
 
 
-## Example folder contents
+| Supported Targets | ESP32-C3 |
+| ----------------- | -------- |
 
-The project **hello_world** contains one source file in C language [hello_world_main.c](main/hello_world_main.c). The file is located in folder [main](main).
+## Project Overview
 
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt` files that provide set of directives and instructions describing the project's source files and targets (executable, library, or both).
+The current firmware initializes the ESP-IDF environment, configures the hardware abstraction layer for the C3 chipset, and prepares the system for wireless data transmission.
 
-Below is short explanation of remaining files in the project folder.
+### Folder Contents
 
-```
-├── CMakeLists.txt
-├── pytest_hello_world.py      Python script used for automated testing
-├── main
-│   ├── CMakeLists.txt
-│   └── hello_world_main.c
-└── README.md                  This is the file you are currently reading
+```text
+├── .gitignore                 # Tells Git which files to ignore
+├── CMakeLists.txt             # Project-level build script
+├── partitions.csv             # Memory partitions file
+├── data/                      
+│   └── config.json            # WiFi, sleep timer, and plant profiles
+├── main/
+│   ├── CMakeLists.txt         # Component-level build script
+│   └── main.c                 # Core SoilBot logic
+└── README.md                  # Project documentation
 ```
 
-For more information on structure and contents of ESP-IDF projects, please refer to Section [Build System](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/build-system.html) of the ESP-IDF Programming Guide.
+
+## Getting Started
+
+### Prerequisites
+
+*   **ESP-IDF Toolchain**: Ensure you have [ESP-IDF installed](https://docs.espressif.com) (v5.0 or newer recommended).
+*   **Hardware**: An ESP32-C3 development board and a compatible moisture sensor.
+
+### Build and Flash
+
+Follow these steps to compile the code and upload it to your chipset:
+
+1.  **Set the Target**:
+    Standardize the build for the ESP32-C3:
+    ```bash
+    idf.py set-target esp32c3
+    ```
+
+2.  **Build the Project**:
+    ```bash
+    idf.py build
+    ```
+
+3.  **Flash and Monitor**:
+    Replace `PORT` with your specific COM port (e.g., `COM3` on Windows or `/dev/ttyUSB0` on Linux):
+    ```bash
+    idf.py -p PORT flash monitor
+    ```
+    *Note: Use `Ctrl + ]` to exit the monitor.*
+
+## Data Collection
+The system is designed to wake up from deep sleep, sample the ADC connected to the moisture probe, and send the data via Wi-Fi or ESP-NOW before returning to a low-power state.
 
 ## Troubleshooting
 
-* Program upload failure
+*   **Chipset Mismatch**: If you see errors regarding chip revision, ensure you ran `set-target esp32c3`.
+*   **Permissions**: On Linux, ensure your user is part of the `dialout` group to access the USB port.
+*   **Flash Failures**: If the board won't enter bootloader mode, hold the **BOOT** button while plugging in the USB cable.
 
-    * Hardware connection is not correct: run `idf.py -p PORT monitor`, and reboot your board to see if there are any output logs.
-    * The baud rate for downloading is too high: lower your baud rate in the `menuconfig` menu, and try again.
+## Technical Support and Feedback
 
-## Technical support and feedback
-
-Please use the following feedback channels:
-
-* For technical queries, go to the [esp32.com](https://esp32.com/) forum
-* For a feature request or bug report, create a [GitHub issue](https://github.com/espressif/esp-idf/issues)
-
-We will get back to you as soon as possible.
+*   For ESP32-C3 specific hardware questions, refer to the [Espressif Documentation](https://docs.espressif.com).
