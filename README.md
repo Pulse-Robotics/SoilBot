@@ -1,4 +1,5 @@
-# SoilBot: Wireless Moisture Monitor
+# SoilBot: Wireless Moisture Monitor <img src="images/leaf.png" width="40" alt="SoilBot Logo">
+
 
 SoilBot is a wireless moisture monitoring system designed for high-accuracy soil data collection. Using the **ESP32-C3** RISC-V microcontroller, it gathers sensor readings and transmits data wirelessly for environmental analysis.
 
